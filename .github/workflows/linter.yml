@@ -46,6 +46,12 @@ jobs:
           TYPESCRIPT_DEFAULT_STYLE: prettier
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JAVASCRIPT_STANDARD: false
+          # ts-standard in super-linter v6 bundles TypeScript 5.5, which can't
+          # parse @types/node 24. TYPESCRIPT_ES and TYPESCRIPT_PRETTIER still run.
+          VALIDATE_TYPESCRIPT_STANDARD: false
           VALIDATE_JSCPD: false
-          GITHUB_ACTIONS_COMMAND_ARGS: -ignore 'property ".+" is not defined in object type'
+          # actionlint in super-linter v6 (1.7.1) predates the node24 runner.
+          GITHUB_ACTIONS_COMMAND_ARGS: >-
+            -ignore 'property ".+" is not defined in object type'
+            -ignore 'invalid runner name "node24"'
           VALIDATE_MARKDOWN: false
