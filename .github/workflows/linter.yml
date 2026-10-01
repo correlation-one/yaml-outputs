@@ -38,14 +38,20 @@ jobs:
 
       - name: Lint Codebase
         id: super-linter
-        uses: super-linter/super-linter/slim@v6
+        uses: super-linter/super-linter/slim@v8
         env:
           DEFAULT_BRANCH: main
           FILTER_REGEX_EXCLUDE: dist/**/*
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TYPESCRIPT_DEFAULT_STYLE: prettier
           VALIDATE_ALL_CODEBASE: true
-          VALIDATE_JAVASCRIPT_STANDARD: false
           VALIDATE_JSCPD: false
           GITHUB_ACTIONS_COMMAND_ARGS: -ignore 'property ".+" is not defined in object type'
           VALIDATE_MARKDOWN: false
+          # Linters added in super-linter v7/v8 that this repo has not adopted.
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+          VALIDATE_TRIVY: false
+          # v8 runs ESLint 9, which ignores .github/linters/.eslintrc.yml. The
+          # repo's ESLint config still runs in CI via `npm run lint`.
+          VALIDATE_TYPESCRIPT_ES: false
